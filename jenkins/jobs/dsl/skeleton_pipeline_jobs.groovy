@@ -64,7 +64,7 @@ buildAppJob.with{
   //}
   label("docker")
   steps {
-    shell('''echo I'm building'''.stripMargin())
+    shell('''echo I\'m building'''.stripMargin())
   }
   // publishers{
   //   downstreamParameterized{
