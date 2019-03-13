@@ -1,52 +1,62 @@
+job('DSL-Tutorial-1-Test') {
+    scm {
+        git('git://github.com/quidryan/aws-sdk-test.git')
+    }
+    triggers {
+        scm('H/15 * * * *')
+    }
+    steps {
+        maven('-e clean test')
+    }
+}
+// import pluggable.scm.*;
+// import adop.cartridge.properties.*;
 
-import pluggable.scm.*;
-import adop.cartridge.properties.*;
+// SCMProvider scmProvider = SCMProviderHandler.getScmProvider("${SCM_PROVIDER_ID}", binding.variables)
+// CartridgeProperties cartridgeProperties = new CartridgeProperties("${CARTRIDGE_CUSTOM_PROPERTIES}");
 
-SCMProvider scmProvider = SCMProviderHandler.getScmProvider("${SCM_PROVIDER_ID}", binding.variables)
-CartridgeProperties cartridgeProperties = new CartridgeProperties("${CARTRIDGE_CUSTOM_PROPERTIES}");
+// // Folders
+// def workspaceFolderName = "${WORKSPACE_NAME}"
+// def projectFolderName = "${PROJECT_NAME}"
+// def projectScmNamespace = "${SCM_NAMESPACE}"
 
-// Folders
-def workspaceFolderName = "${WORKSPACE_NAME}"
-def projectFolderName = "${PROJECT_NAME}"
-def projectScmNamespace = "${SCM_NAMESPACE}"
+// // Variables
+// // **The git repo variables can be changed to the users' git repositories when loading the cartridge and populating the CARTRIDGE_CUSTOM_PROPERTIES with "scm.code.repo.name" and "scm.test.repo.name" properties.
+// def skeletonAppgitRepo = cartridgeProperties.getProperty("scm.code.repo.name", "YOUR_APPLICATION_REPO");
+// def regressionTestGitRepo = cartridgeProperties.getProperty("scm.test.repo.name", "YOUR_REGRESSION_TEST_REPO");
 
-// Variables
-// **The git repo variables can be changed to the users' git repositories when loading the cartridge and populating the CARTRIDGE_CUSTOM_PROPERTIES with "scm.code.repo.name" and "scm.test.repo.name" properties.
-def skeletonAppgitRepo = cartridgeProperties.getProperty("scm.code.repo.name", "YOUR_APPLICATION_REPO");
-def regressionTestGitRepo = cartridgeProperties.getProperty("scm.test.repo.name", "YOUR_REGRESSION_TEST_REPO");
+// // ** The logrotator variables should be changed to meet your build archive requirements
+// def logRotatorDaysToKeep = 2
+// def logRotatorBuildNumToKeep = 2
+// def logRotatorArtifactsNumDaysToKeep = 2
+// def logRotatorArtifactsNumToKeep = 2
 
-// ** The logrotator variables should be changed to meet your build archive requirements
-def logRotatorDaysToKeep = 7
-def logRotatorBuildNumToKeep = 7
-def logRotatorArtifactsNumDaysToKeep = 7
-def logRotatorArtifactsNumToKeep = 7
-
-// Jobs
-def buildAppJob = freeStyleJob(projectFolderName + "/Skeleton_Application_Build")
-def unitTestJob = freeStyleJob(projectFolderName + "/Skeleton_Application_Unit_Tests")
+// // Jobs
+// def buildAppJob = freeStyleJob(projectFolderName + "/Skeleton_Application_Build")
+// def unitTestJob = freeStyleJob(projectFolderName + "/Skeleton_Application_Unit_Tests")
 //def codeAnalysisJob = freeStyleJob(projectFolderName + "/Skeleton_Application_Code_Analysis")
 //def deployJob = freeStyleJob(projectFolderName + "/Skeleton_Application_Deploy")
 //def regressionTestJob = freeStyleJob(projectFolderName + "/Skeleton_Application_Regression_Tests")
 
 // Views
-def pipelineView = buildPipelineView(projectFolderName + "/Skeleton_Application")
+// def pipelineView = buildPipelineView(projectFolderName + "/Skeleton_Application")
 
-pipelineView.with{
-    title('Skeleton Application Pipeline')
-    displayedBuilds(5)
-    selectedJob(projectFolderName + "/Skeleton_Application_Build")
-    showPipelineParameters()
-    showPipelineDefinitionHeader()
-    refreshFrequency(5)
-}
+// pipelineView.with{
+//     title('Skeleton Application Pipeline')
+//     displayedBuilds(5)
+//     selectedJob(projectFolderName + "/Skeleton_Application_Build")
+//     showPipelineParameters()
+//     showPipelineDefinitionHeader()
+//     refreshFrequency(5)
+// }
 
 // All jobs are tied to build on the Jenkins slave
 // The functional build steps for each job have been left empty
 // A default set of wrappers have been used for each job
 // New jobs can be introduced into the pipeline as required
 
-buildAppJob.with{
-  description("Skeleton application build job.")
+// buildAppJob.with{
+//   description("Skeleton application build job.")
   // logRotator {
   //   daysToKeep(logRotatorDaysToKeep)
   //   numToKeep(logRotatorBuildNumToKeep)
@@ -54,10 +64,10 @@ buildAppJob.with{
   //   artifactNumToKeep(logRotatorArtifactsNumToKeep)
   // }
   // scm scmProvider.get(projectScmNamespace, skeletonAppgitRepo, "*/master", "adop-jenkins-master", null)
-  environmentVariables {
-      env('WORKSPACE_NAME',workspaceFolderName)
-      env('PROJECT_NAME',projectFolderName)
-  }
+  // environmentVariables {
+  //     env('WORKSPACE_NAME',workspaceFolderName)
+  //     env('PROJECT_NAME',projectFolderName)
+  // }
 //   label("docker")
 //   wrappers {
 //     preBuildCleanup()
@@ -82,12 +92,12 @@ buildAppJob.with{
 //   }
 // }
 
-unitTestJob.with{
-  description("This job runs unit tests on our skeleton application.")
-  parameters{
-    stringParam("B",'',"Parent build number")
-    stringParam("PARENT_BUILD","Skeleton_Application_Build","Parent build name")
-  }
+// unitTestJob.with{
+//   description("This job runs unit tests on our skeleton application.")
+  // parameters{
+  //   stringParam("B",'',"Parent build number")
+  //   stringParam("PARENT_BUILD","Skeleton_Application_Build","Parent build name")
+  // }
   // logRotator {
   //   daysToKeep(logRotatorDaysToKeep)
   //   numToKeep(logRotatorBuildNumToKeep)
@@ -100,10 +110,10 @@ unitTestJob.with{
   //   maskPasswords()
   //   sshAgent("adop-jenkins-master")
   // }
-  environmentVariables {
-      env('WORKSPACE_NAME',workspaceFolderName)
-      env('PROJECT_NAME',projectFolderName)
-  }
+  // environmentVariables {
+  //     env('WORKSPACE_NAME',workspaceFolderName)
+  //     env('PROJECT_NAME',projectFolderName)
+  // }
 //   label("docker")
 //   steps {
 //   }
