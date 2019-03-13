@@ -1,4 +1,4 @@
-job('DSL-Tutorial-1-Test') {
+//job('DSL-Tutorial-1-Test') {
     scm {
         git('git://github.com/quidryan/aws-sdk-test.git')
     }
@@ -8,17 +8,17 @@ job('DSL-Tutorial-1-Test') {
     steps {
         maven('-e clean test')
     }
-}
-// import pluggable.scm.*;
-// import adop.cartridge.properties.*;
+//}
+import pluggable.scm.*;
+import adop.cartridge.properties.*;
 
-// SCMProvider scmProvider = SCMProviderHandler.getScmProvider("${SCM_PROVIDER_ID}", binding.variables)
-// CartridgeProperties cartridgeProperties = new CartridgeProperties("${CARTRIDGE_CUSTOM_PROPERTIES}");
+SCMProvider scmProvider = SCMProviderHandler.getScmProvider("${SCM_PROVIDER_ID}", binding.variables)
+CartridgeProperties cartridgeProperties = new CartridgeProperties("${CARTRIDGE_CUSTOM_PROPERTIES}");
 
 // // Folders
-// def workspaceFolderName = "${WORKSPACE_NAME}"
-// def projectFolderName = "${PROJECT_NAME}"
-// def projectScmNamespace = "${SCM_NAMESPACE}"
+def workspaceFolderName = "${WORKSPACE_NAME}"
+def projectFolderName = "${PROJECT_NAME}"
+def projectScmNamespace = "${SCM_NAMESPACE}"
 
 // // Variables
 // // **The git repo variables can be changed to the users' git repositories when loading the cartridge and populating the CARTRIDGE_CUSTOM_PROPERTIES with "scm.code.repo.name" and "scm.test.repo.name" properties.
@@ -32,7 +32,7 @@ job('DSL-Tutorial-1-Test') {
 // def logRotatorArtifactsNumToKeep = 2
 
 // // Jobs
-// def buildAppJob = freeStyleJob(projectFolderName + "/Skeleton_Application_Build")
+def buildAppJob = freeStyleJob(projectFolderName + "/Build_Job")
 // def unitTestJob = freeStyleJob(projectFolderName + "/Skeleton_Application_Unit_Tests")
 //def codeAnalysisJob = freeStyleJob(projectFolderName + "/Skeleton_Application_Code_Analysis")
 //def deployJob = freeStyleJob(projectFolderName + "/Skeleton_Application_Deploy")
@@ -55,42 +55,29 @@ job('DSL-Tutorial-1-Test') {
 // A default set of wrappers have been used for each job
 // New jobs can be introduced into the pipeline as required
 
-// buildAppJob.with{
-//   description("Skeleton application build job.")
-  // logRotator {
-  //   daysToKeep(logRotatorDaysToKeep)
-  //   numToKeep(logRotatorBuildNumToKeep)
-  //   artifactDaysToKeep(logRotatorArtifactsNumDaysToKeep)
-  //   artifactNumToKeep(logRotatorArtifactsNumToKeep)
+buildAppJob.with{
+  //description("Skeleton application build job.")
+  //scm scmProvider.get(projectScmNamespace, skeletonAppgitRepo, "*/master", "adop-jenkins-master", null)
+  //environmentVariables {
+      //env('WORKSPACE_NAME',workspaceFolderName)
+     // env('PROJECT_NAME',projectFolderName)
+  //}
+  label("docker")
+  steps {
+    shell('''echo I'm building'''.stripMargin())
+  }
+  // publishers{
+  //   downstreamParameterized{
+  //     trigger(projectFolderName + "/Skeleton_Application_Unit_Tests"){
+  //       condition("UNSTABLE_OR_BETTER")
+  //       parameters{
+  //         predefinedProp("B",'${BUILD_NUMBER}')
+  //         predefinedProp("PARENT_BUILD", '${JOB_NAME}')
+  //       }
+  //     }
+  //   }
   // }
-  // scm scmProvider.get(projectScmNamespace, skeletonAppgitRepo, "*/master", "adop-jenkins-master", null)
-  // environmentVariables {
-  //     env('WORKSPACE_NAME',workspaceFolderName)
-  //     env('PROJECT_NAME',projectFolderName)
-  // }
-//   label("docker")
-//   wrappers {
-//     preBuildCleanup()
-//     injectPasswords()
-//     maskPasswords()
-//     sshAgent("adop-jenkins-master")
-//   }
-//   triggers scmProvider.trigger(projectScmNamespace, skeletonAppgitRepo, "master")
-//   steps {
-//     shell('''## YOUR BUILD STEPS GO HERE'''.stripMargin())
-//   }
-//   publishers{
-//     downstreamParameterized{
-//       trigger(projectFolderName + "/Skeleton_Application_Unit_Tests"){
-//         condition("UNSTABLE_OR_BETTER")
-//         parameters{
-//           predefinedProp("B",'${BUILD_NUMBER}')
-//           predefinedProp("PARENT_BUILD", '${JOB_NAME}')
-//         }
-//       }
-//     }
-//   }
-// }
+}
 
 // unitTestJob.with{
 //   description("This job runs unit tests on our skeleton application.")
