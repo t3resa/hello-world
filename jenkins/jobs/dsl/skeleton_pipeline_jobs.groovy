@@ -78,6 +78,9 @@ buildAppJob.with{
         }
       }
     }
+    maven {
+      mavenInstallation('Maven 3.1.1')
+    }
   }
   publishers{
     downstream(projectFolderName + "/Testing_Job")
