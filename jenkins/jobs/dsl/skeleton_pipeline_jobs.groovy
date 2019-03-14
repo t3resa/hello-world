@@ -39,7 +39,7 @@ def unitTestJob = freeStyleJob(projectFolderName + "/Testing_Job")
 //def regressionTestJob = freeStyleJob(projectFolderName + "/Skeleton_Application_Regression_Tests")
 
 // Views
-// def pipelineView = buildPipelineView(projectFolderName + "/Skeleton_Application")
+def pipelineView = buildPipelineView(projectFolderName + "/Viewing")
 
 // pipelineView.with{
 //     title('Skeleton Application Pipeline')
