@@ -33,7 +33,7 @@ def projectScmNamespace = "${SCM_NAMESPACE}"
 
 // // Jobs
 def buildAppJob = freeStyleJob(projectFolderName + "/Build_Job")
-// def unitTestJob = freeStyleJob(projectFolderName + "/Skeleton_Application_Unit_Tests")
+def unitTestJob = freeStyleJob(projectFolderName + "/Testing_Job")
 //def codeAnalysisJob = freeStyleJob(projectFolderName + "/Skeleton_Application_Code_Analysis")
 //def deployJob = freeStyleJob(projectFolderName + "/Skeleton_Application_Deploy")
 //def regressionTestJob = freeStyleJob(projectFolderName + "/Skeleton_Application_Regression_Tests")
@@ -79,7 +79,7 @@ buildAppJob.with{
   // }
 }
 
-// unitTestJob.with{
+unitTestJob.with{
 //   description("This job runs unit tests on our skeleton application.")
   // parameters{
   //   stringParam("B",'',"Parent build number")
@@ -101,12 +101,12 @@ buildAppJob.with{
   //     env('WORKSPACE_NAME',workspaceFolderName)
   //     env('PROJECT_NAME',projectFolderName)
   // }
-//   label("docker")
+   label("docker")
 //   steps {
 //   }
-//   steps {
-//     shell('''## YOUR UNIT TESTING STEPS GO HERE'''.stripMargin())
-//   }
+   steps {
+     shell('''echo "I\'m Testing"'''.stripMargin())
+   }
 //   publishers{
 //     downstreamParameterized{
 //       trigger(projectFolderName + "/Skeleton_Application_Code_Analysis"){
