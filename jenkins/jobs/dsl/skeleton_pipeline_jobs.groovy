@@ -67,15 +67,16 @@ buildAppJob.with{
     shell('''echo "I\'m building"'''.stripMargin())
   }
   publishers{
-    downstreamParameterized{
-      trigger(projectFolderName + "/Testing_Job"){
-        condition("UNSTABLE_OR_BETTER")
-        parameters{
-          predefinedProp("B",'${BUILD_NUMBER}')
-          predefinedProp("PARENT_BUILD", '${JOB_NAME}')
-        }
-      }
-     }
+    downstream(projectFolderName + "/Testing_Job")
+    // downstreamParameterized{
+    //   trigger(projectFolderName + "/Testing_Job"){
+    //     condition("UNSTABLE_OR_BETTER")
+    //     parameters{
+    //       predefinedProp("B",'${BUILD_NUMBER}')
+    //       predefinedProp("PARENT_BUILD", '${JOB_NAME}')
+    //     }
+    //   }
+    //  }
    }
 }
 
