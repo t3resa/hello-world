@@ -55,6 +55,11 @@ def pipelineView = buildPipelineView(projectFolderName + "/Viewing")
 // A default set of wrappers have been used for each job
 // New jobs can be introduced into the pipeline as required
 
+//MY NEW SCM
+scm {
+  github 't3resa/maven-hello-world'
+}
+
 buildAppJob.with{
   //description("Skeleton application build job.")
   //scm scmProvider.get(projectScmNamespace, skeletonAppgitRepo, "*/master", "adop-jenkins-master", null)
@@ -120,6 +125,19 @@ unitTestJob.with{
 //     }
 //   }
 }
+
+// node {
+//  should keep commented out: stage('SCM') {
+//     git 'https://github.com/foo/bar.git'
+//   }
+//   stage('SonarQube analysis') {
+//     // requires SonarQube Scanner 2.8+
+//     def scannerHome = tool 'SonarQube Scanner 2.8';
+//     withSonarQubeEnv('My SonarQube Server') {
+//       sh "${scannerHome}/bin/sonar-scanner"
+//     }
+//   }
+// }
 
 // codeAnalysisJob.with{
 //   description("This job runs code quality analysis for our skeleton application using SonarQube.")
