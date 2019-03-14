@@ -119,7 +119,7 @@ unitTestJob.with{
 //       }
 //     }
 //   }
-// }
+}
 
 // codeAnalysisJob.with{
 //   description("This job runs code quality analysis for our skeleton application using SonarQube.")
