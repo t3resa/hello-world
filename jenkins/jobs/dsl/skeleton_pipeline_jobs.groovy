@@ -56,13 +56,13 @@ def pipelineView = buildPipelineView(projectFolderName + "/Viewing")
 // New jobs can be introduced into the pipeline as required
 
 //MY NEW SCM
-scm {
-  github 't3resa/maven-hello-world'
-}
+// scm {
+//   git 
+// }
 
 buildAppJob.with{
   //description("Skeleton application build job.")
-  //scm scmProvider.get(projectScmNamespace, skeletonAppgitRepo, "*/master", "adop-jenkins-master", null)
+  scm scmProvider.get(projectScmNamespace, skeletonAppgitRepo, "*/master", "adop-jenkins-master", null)
   //environmentVariables {
       //env('WORKSPACE_NAME',workspaceFolderName)
      // env('PROJECT_NAME',projectFolderName)
@@ -70,6 +70,14 @@ buildAppJob.with{
   label("docker")
   steps {
     shell('''echo "I\'m building"'''.stripMargin())
+    scm {
+      git {
+        remote {
+          branch('master')
+          url('https://github.com/t3resa/maven-hello-world.git')
+        }
+      }
+    }
   }
   publishers{
     downstream(projectFolderName + "/Testing_Job")
