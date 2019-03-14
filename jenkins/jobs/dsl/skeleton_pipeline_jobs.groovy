@@ -62,7 +62,7 @@ def pipelineView = buildPipelineView(projectFolderName + "/Viewing")
 
 buildAppJob.with{
   //description("Skeleton application build job.")
-  scm scmProvider.get(projectScmNamespace, skeletonAppgitRepo, "*/master", "adop-jenkins-master", null)
+  //scm scmProvider.get(projectScmNamespace, skeletonAppgitRepo, "*/master", "adop-jenkins-master", null)
   //environmentVariables {
       //env('WORKSPACE_NAME',workspaceFolderName)
      // env('PROJECT_NAME',projectFolderName)
