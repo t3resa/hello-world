@@ -78,6 +78,9 @@ buildAppJob.with{
         }
       }
     }
+    maven ()
+
+
     maven ('clean verify', 'my-app/pom.xml')
     maven {
       mavenInstallation('ADOP Maven')
