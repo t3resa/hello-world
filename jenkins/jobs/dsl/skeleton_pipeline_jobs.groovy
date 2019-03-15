@@ -78,12 +78,15 @@ buildAppJob.with{
         }
       }
     }
-    maven ()
 
 
-    maven ('clean verify', 'my-app/pom.xml')
+    //maven ('clean verify', 'my-app/pom.xml')
     maven {
       mavenInstallation('ADOP Maven')
+      rootPOM('my-app/pom.xml')
+      goals('clean')
+      goals('verify')
+      goals('install')
     }
   }
   publishers{
