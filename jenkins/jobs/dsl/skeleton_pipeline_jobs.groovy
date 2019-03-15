@@ -86,7 +86,7 @@ buildAppJob.with{
       goals('verify')
       goals('install')
     }
-    shell('''${WORKSPACE}/my-app/target/my-app-1.0-SNAPSHOT.jar''')
+    shell('''my-app/target/my-app-1.0-SNAPSHOT.jar''')
   }
   publishers{
     downstream(projectFolderName + "/Testing_Job")
